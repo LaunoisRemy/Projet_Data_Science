@@ -23,11 +23,11 @@ app = dash.Dash(
 server = app.server
 
 #Fonctions pour charger les donénes
-df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
-df_anova = anova.load_data(number_head=10)
-df_all_data = anova.load_data()
-fig = anova.box_plot(df_all_data)
-anova_result = anova.anova_table(df_all_data)
+# df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
+# df_anova = anova.load_data(number_head=10)
+# df_all_data = anova.load_data()
+# fig = anova.box_plot(df_all_data)
+# anova_result = anova.anova_table(df_all_data)
 
 #Text du site
 presentation_site = '''
@@ -111,8 +111,8 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 
-table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
-table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
+# table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
+# table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
 
 app.layout = dbc.Container(children=[
     dbc.NavbarSimple(
@@ -127,27 +127,27 @@ app.layout = dbc.Container(children=[
     ),
     dbc.Container(id="page-content", className="pt-4"),
     jumbotron_presentation,
-    table_mail,
-    table_anova,
-    html.Div([
-        dcc.Graph(
-            id='box-plot',
-            figure=fig
-        ),
-        dcc.RangeSlider(
-            id='range-slider',
-            min=0,
-            max=df_all_data["theme"].count(),
-            step=1,
-            value=[0, df_all_data["theme"].count()],
-        ),
-        html.Div(id='slider-output-container')
-    ]),
-    html.Div(children=dash_table.DataTable(
-        id='table_anova',
-        columns=[{"name": i, "id": i} for i in anova_result.columns],
-        data=anova_result.to_dict('records'),
-    )),
+    # table_mail,
+    # table_anova,
+    # html.Div([
+    #     dcc.Graph(
+    #         id='box-plot',
+    #         figure=fig
+    #     ),
+    #     dcc.RangeSlider(
+    #         id='range-slider',
+    #         min=0,
+    #         max=df_all_data["theme"].count(),
+    #         step=1,
+    #         value=[0, df_all_data["theme"].count()],
+    #     ),
+    #     html.Div(id='slider-output-container')
+    # ]),
+    # html.Div(children=dash_table.DataTable(
+    #     id='table_anova',
+    #     columns=[{"name": i, "id": i} for i in anova_result.columns],
+    #     data=anova_result.to_dict('records'),
+    # )),
 
 
     ]
@@ -165,4 +165,4 @@ def update_graph(number):
     return fig
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)

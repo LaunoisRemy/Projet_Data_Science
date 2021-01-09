@@ -23,7 +23,7 @@ app = dash.Dash(
 server = app.server
 
 #Fonctions pour charger les donénes
-# df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
+df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
 # df_anova = anova.load_data(number_head=10)
 # df_all_data = anova.load_data()
 # fig = anova.box_plot(df_all_data)
@@ -61,26 +61,6 @@ jumbotron_presentation = dbc.Jumbotron(
         html.P(dbc.Button("Learn more", color="primary"), className="lead"),
     ]
 )
-# navbar = dbc.NavbarSimple(
-#     children=[
-#             html.A(
-#             # Use row and col to control vertical alignment of logo / brand
-#             dbc.Row(
-#                 [
-#                     dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
-#                     dbc.Col(dbc.NavbarBrand("Navbar", className="ml-2")),
-#                 ],
-#                 align="center",
-#                 no_gutters=True,
-#             ),
-#             href="/",
-#         )
-#         dbc.NavItem(dbc.NavLink("Présentation des données", href="#")),
-#         dbc.NavbarToggler(id="navbar-toggler"),
-#     ],
-#     color="dark",
-#     dark=True,
-# )
 
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
@@ -111,7 +91,7 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 
-# table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
+table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
 # table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
 
 app.layout = dbc.Container(children=[
@@ -127,7 +107,7 @@ app.layout = dbc.Container(children=[
     ),
     dbc.Container(id="page-content", className="pt-4"),
     jumbotron_presentation,
-    # table_mail,
+    table_mail,
     # table_anova,
     # html.Div([
     #     dcc.Graph(

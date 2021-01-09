@@ -1,21 +1,9 @@
 import os
 
-import nltk
 import pandas
-import operator
 import json
 import csv
-import sys
-from datetime import datetime
-import re
-from nltk.corpus import stopwords
-from Code.utils_mail import link_mail
-from Code.utils_mail import processing_mail
-from Code.utils_mail import get_themes
-#nltk.download('averaged_perceptron_tagger')
-#nltk.download('wordnet')
-#nltk.download('universal_tagset')
-from Code.utils_mail.get_themes import get_discussion_themes
+
 
 '''maxInt = sys.maxsize
 

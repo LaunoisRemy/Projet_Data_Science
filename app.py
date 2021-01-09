@@ -123,11 +123,11 @@ app.layout = dbc.Container(children=[
     #     ),
     #     html.Div(id='slider-output-container')
     # ]),
-    # html.Div(children=dash_table.DataTable(
-    #     id='table_anova',
-    #     columns=[{"name": i, "id": i} for i in anova_result.columns],
-    #     data=anova_result.to_dict('records'),
-    # )),
+    html.Div(children=dash_table.DataTable(
+        id='table_anova',
+        columns=[{"name": i, "id": i} for i in anova_result.columns],
+        data=anova_result.to_dict('records'),
+    )),
 
 
     ]

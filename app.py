@@ -18,7 +18,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 #Fonctions pour charger les donénes
-# df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
+df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
 # df_anova = anova.load_data(number_head=5)
 # df_all_data = anova.load_data()
 # fig = anova.box_plot(df_all_data)
@@ -38,11 +38,11 @@ Ici un extrait des données de base que nous disposions :
 app.layout = html.Div(children=[
     dcc.Markdown(children=presentation_site),
     dcc.Markdown(children=presentation_donnee),
-    # html.Div(children=dash_table.DataTable(
-    #     id='table_mail',
-    #     columns=[{"name": i, "id": i} for i in df_mail.columns],
-    #     data=df_mail.to_dict('records'),
-    # )),
+    html.Div(children=dash_table.DataTable(
+        id='table_mail',
+        columns=[{"name": i, "id": i} for i in df_mail.columns],
+        data=df_mail.to_dict('records'),
+    )),
     # dcc.Markdown(children=presentation_site),
     # html.Div(children=dash_table.DataTable(
     #     id='data_anova',

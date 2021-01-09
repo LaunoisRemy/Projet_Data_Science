@@ -91,8 +91,8 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 
-table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
-table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
+# table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
+# table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
 
 app.layout = dbc.Container(children=[
     dbc.NavbarSimple(
@@ -107,8 +107,8 @@ app.layout = dbc.Container(children=[
     ),
     dbc.Container(id="page-content", className="pt-4"),
     jumbotron_presentation,
-    table_mail,
-    table_anova,
+    # table_mail,
+    # table_anova,
     # html.Div([
     #     dcc.Graph(
     #         id='box-plot',

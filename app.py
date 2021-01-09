@@ -93,6 +93,7 @@ def toggle_navbar_collapse(n, is_open):
 
 table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
 table_anova = dbc.Table.from_dataframe(df_anova, striped=True, bordered=True, hover=True)
+anova_result = dbc.Table.from_dataframe(anova_result, striped=True, bordered=True, hover=True)
 
 app.layout = dbc.Container(children=[
     dbc.NavbarSimple(
@@ -128,11 +129,12 @@ app.layout = dbc.Container(children=[
     #     columns=[{"name": i, "id": i} for i in anova_result.columns],
     #     data=anova_result.to_dict('records'),
     # )),
-    dbc.Container(children=dash_table.DataTable(
-        id='table_anova',
-        columns=[{"name": i, "id": i} for i in anova_result.columns],
-        data=anova_result.to_dict('records'),
-    )),
+    anova_result,
+    # dbc.Container(children=dash_table.DataTable(
+    #     id='table_anova',
+    #     columns=[{"name": i, "id": i} for i in anova_result.columns],
+    #     data=anova_result.to_dict('records'),
+    # )),
 
 
     ]

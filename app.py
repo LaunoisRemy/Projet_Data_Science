@@ -110,25 +110,24 @@ app.layout = dbc.Container(children=[
     jumbotron_presentation,
     table_mail,
     table_anova,
-    # html.Div([
-    #     dcc.Graph(
-    #         id='box-plot',
-    #         figure=fig
-    #     ),
-    #     dcc.RangeSlider(
-    #         id='range-slider',
-    #         min=0,
-    #         max=df_all_data["theme"].count(),
-    #         step=1,
-    #         value=[0, df_all_data["theme"].count()],
-    #     ),
-    #     html.Div(id='slider-output-container')
-    # ]),
-    # html.Div(children=dash_table.DataTable(
-    #     id='table_anova',
-    #     columns=[{"name": i, "id": i} for i in anova_result.columns],
-    #     data=anova_result.to_dict('records'),
-    # )),
+    dbc.Container(
+        html.Div([
+            dcc.Graph(
+                id='box-plot',
+                figure=fig
+            ),
+            dcc.RangeSlider(
+                id='range-slider',
+                min=0,
+                max=df_all_data["theme"].count(),
+                step=1,
+                value=[0, df_all_data["theme"].count()],
+            ),
+            html.Div(id='slider-output-container')
+        ]),
+    ),
+
+
     anova_result,
 
 

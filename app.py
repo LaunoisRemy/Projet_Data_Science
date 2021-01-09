@@ -16,20 +16,20 @@ from dash.dependencies import Input, Output, State
 PLOTLY_LOGO = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
 import pandas as pd
 
-
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP]
 )
 server = app.server
 
-#Fonctions pour charger les donénes
-df_mail = utils.get_df_from_csv("data_clean_sample.csv",10,["Date", "From", "To","Subject"])#TODO mieux presentr le tableau
+# Fonctions pour charger les donénes
+df_mail = utils.get_df_from_csv("data_clean_sample.csv", 10,
+                                ["Date", "From", "To", "Subject"])  # TODO mieux presentr le tableau
 df_anova = anova.load_data(number_head=10)
 df_all_data = anova.load_data()
 fig = anova.box_plot(df_all_data)
 anova_result = anova.anova_table(df_all_data)
 
-#Text du site
+# Text du site
 presentation_site = '''
 # Présentation du projet
 
@@ -80,6 +80,7 @@ def render_page_content(pathname):
         ]
     )
 
+
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -97,42 +98,42 @@ anova_result = dbc.Table.from_dataframe(anova_result, striped=True, bordered=Tru
 
 app.layout = dbc.Container(children=[
     dbc.NavbarSimple(
-    children=[
-        dbc.NavLink("Home", href="/", active="exact"),
-        dbc.NavLink("Page 1", href="/page-1", active="exact"),
-        dbc.NavLink("Page 2", href="/page-2", active="exact"),
-    ],
-    brand="Navbar with active links",
-    color="primary",
-    dark=True,
+        children=[
+            dbc.NavLink("Home", href="/", active="exact"),
+            dbc.NavLink("Page 1", href="/page-1", active="exact"),
+            dbc.NavLink("Page 2", href="/page-2", active="exact"),
+        ],
+        brand="Navbar with active links",
+        color="primary",
+        dark=True,
     ),
     dbc.Container(id="page-content", className="pt-4"),
     jumbotron_presentation,
     table_mail,
     table_anova,
     dbc.Container(
-        html.Div([
-            dcc.Graph(
-                id='box-plot',
-                figure=fig
-            ),
-            dcc.RangeSlider(
-                id='range-slider',
-                min=0,
-                max=df_all_data["theme"].count(),
-                step=1,
-                value=[0, df_all_data["theme"].count()],
-            ),
-            html.Div(id='slider-output-container')
-        ]),
-    ),
+        [
+            html.Div([
+                dcc.Graph(
+                    id='box-plot',
+                    figure=fig
+                ),
+                dcc.RangeSlider(
+                    id='range-slider',
+                    min=0,
+                    max=df_all_data["theme"].count(),
+                    step=1,
+                    value=[0, df_all_data["theme"].count()],
+                ),
+                html.Div(id='slider-output-container')
+            ]),
+        ]
 
+    ),
 
     anova_result,
 
-
-
-    ]
+]
 
 )
 
@@ -141,10 +142,10 @@ app.layout = dbc.Container(children=[
     Output('box-plot', 'figure'),
     Input('range-slider', 'value')
 )
-
 def update_graph(number):
     fig = anova.box_plot(anova.load_data(number[0], number[1]))
     return fig
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

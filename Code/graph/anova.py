@@ -19,7 +19,7 @@ def load_data(number_start=0, number_head=None):
     for index, row in df.iterrows():
         i += 1
         df.at[index, 'time'] = row["time"] / 86400
-        if i > 100:
+        if i > 1000:
             break
     time_filter = df['time'] < 182.5
     df = df[time_filter]

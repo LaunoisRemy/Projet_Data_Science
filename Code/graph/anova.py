@@ -4,9 +4,8 @@ import os
 
 import pandas as pd
 import plotly.express as px
-import matplotlib.pyplot as plt
-import seaborn as sns
-
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 
 def load_data(number_start=0, number_head=None,freq=2):
     # load data file
@@ -59,5 +58,3 @@ def anova_table(df):
     return sm.stats.anova_lm(model, typ=2)
 
 
-import statsmodels.api as sm
-from statsmodels.formula.api import ols

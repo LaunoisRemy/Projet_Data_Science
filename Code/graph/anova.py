@@ -44,12 +44,13 @@ def bar_plot(df):
     # plt.title("Temps de réponse moyen pour les thèmes les plus fréquents (>100) issus des conversations",fontsize=9)
     # plt.ylabel("time (en jours)")
     # plt.show()
-    fig = px.bar(data_frame=df, x='theme', y='time',
+    grouped_df = df.groupby("theme").mean().reset_index()
+    fig = px.bar(data_frame=grouped_df, x='theme', y='time',
                   title="Temps de réponse moyen pour les thèmes les plus fréquents (>100) issus des conversations",
+                 color="theme"
                   )
-    fig.update_layout(
-        yaxis_title="Temps (en jours)"
-    )
+    fig.update_layout(showlegend=False,
+                      yaxis_title="Temps (en jours)")
     return fig
 
 

@@ -26,18 +26,12 @@ df_mail = utils.get_df_from_csv("data_clean_sample.csv", 10,
                                 ["Date", "From", "To", "Subject"])  # TODO mieux presentr le tableau
 df_anova = anova.load_data(number_head=10)
 df_all_data = anova.load_data()
-fig = anova.box_plot(df_all_data)
+df_data_sample = anova.cut_df(df_all_data, number_head=1000)
+fig = anova.box_plot(df_data_sample)
+# fig_barplot = anova.bar_plot(anova.cut_df(df_all_data,freq=100))
 anova_result = anova.anova_table(df_all_data)
 
-# Text du site
-presentation_site = '''
-# Présentation du projet
 
-
-
-
-
-'''
 table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
 
 presentation_donnee = dbc.Jumbotron([
@@ -87,7 +81,17 @@ jumbotron_presentation = dbc.Jumbotron(
 @app.callback(Output("page-content", "children"), [dash.dependencies.Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return dbc.Container(jumbotron_presentation)
+        return dbc.Container(children=[
+            jumbotron_presentation,
+            # html.Div([
+            #     dcc.Graph(
+            #         id='bar',
+            #         figure=fig_barplot
+            #     )
+            # ])
+
+        ]
+        )
     elif pathname == "/data":
         return dbc.Container(children=[presentation_donnee, apres_traitement, table_anova])
     elif pathname == "/resultats":
@@ -103,7 +107,7 @@ def render_page_content(pathname):
                         min=0,
                         max=df_all_data["theme"].count(),
                         step=1,
-                        value=[0, df_all_data["theme"].count()],
+                        value=[0, df_data_sample["theme"].count()],
                     ),
                     html.Div(id='slider-output-container')
                 ]),

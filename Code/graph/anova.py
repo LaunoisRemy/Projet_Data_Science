@@ -7,6 +7,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def load_data(number_start=0, number_head=None,freq=2):
     # load data file
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,11 +17,11 @@ def load_data(number_start=0, number_head=None,freq=2):
         df = pd.melt(df, value_vars=list(df.columns), var_name='theme', value_name='time')
 
     df = df[df['time'].notna()]
+    df = cut_df(df, number_start, number_head, freq)
     for index, row in df.iterrows():
         df.at[index, 'time'] = row["time"] / 86400
     time_filter = df['time'] < 182.5
     df = df[time_filter]
-    df = cut_df(df, number_start, number_head, freq)
 
     return df
 

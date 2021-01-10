@@ -43,9 +43,13 @@ def bar_plot(df):
     # plt.title("Temps de réponse moyen pour les thèmes les plus fréquents (>100) issus des conversations",fontsize=9)
     # plt.ylabel("time (en jours)")
     # plt.show()
-    return px.bar(data_frame=df, x='theme', y='time',
+    fig = px.bar(data_frame=df, x='theme', y='time',
                   title="Temps de réponse moyen pour les thèmes les plus fréquents (>100) issus des conversations",
                   )
+    fig.update_layout(
+        yaxis_title="Temps (en jours)"
+    )
+    return fig
 
 
 def anova_table(df):

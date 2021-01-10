@@ -28,7 +28,7 @@ df_anova = anova.load_data(number_head=10)
 df_all_data = anova.load_data()
 df_data_sample = anova.cut_df(df_all_data, number_head=1000)
 fig = anova.box_plot(df_data_sample)
-# fig_barplot = anova.bar_plot(anova.cut_df(df_all_data,freq=100))
+fig_barplot = anova.bar_plot(anova.cut_df(df_all_data,freq=100))
 anova_result = anova.anova_table(df_all_data)
 
 
@@ -81,16 +81,8 @@ jumbotron_presentation = dbc.Jumbotron(
 @app.callback(Output("page-content", "children"), [dash.dependencies.Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return dbc.Container(children=[
-            jumbotron_presentation,
-            # html.Div([
-            #     dcc.Graph(
-            #         id='bar',
-            #         figure=fig_barplot
-            #     )
-            # ])
-
-        ]
+        return dbc.Container(
+            jumbotron_presentation
         )
     elif pathname == "/data":
         return dbc.Container(children=[presentation_donnee, apres_traitement, table_anova])
@@ -111,6 +103,12 @@ def render_page_content(pathname):
                     ),
                     html.Div(id='slider-output-container')
                 ]),
+                html.Div(
+                    dcc.Graph(
+                        id='bar',
+                        figure=fig_barplot
+                    )
+                )
             ]
 
         ),

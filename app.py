@@ -76,6 +76,43 @@ jumbotron_presentation = dbc.Jumbotron(
         html.P(dbc.Button("Visualiser les données", color="primary", block=True), className="lead"),
     ]
 )
+table_analyse_variance = dbc.Container([
+    html.H3("Table d’analyse de la variance"),
+    html.Hr(className="my-2"),
+    html.P("Après analyse de nos 188 thèmes et des temps de réponses associés, grâce à la méthode de l’anova, "
+           "nous obtenons une p-value proche de 1. Celle-ci nous indique que nous ne pouvons pas rejeter H0. Nous ne "
+           "pouvons donc pas affirmer que le thème d’un mail influe le temps de réponse de la personne qui le reçoit "
+           "(au risque alpha = 0.05). "),
+
+])
+
+graphiques_associes = dbc.Container([
+    html.H3("Graphiques associés"),
+    html.Hr(className="my-2"),
+
+
+])
+
+graphique_boxplot = dbc.Container([
+    html.P("Boxplot associées aux données dont les valeurs extrêmes (pour le temps) ont été retirées et dont les "
+           "thèmes qui apparaissent moins de 3 fois ont été retirées. On constate que pour l’ensemble des thèmes "
+           "présents ici, la plupart des valeurs sont inférieures à 25 (jours) mais que pour certains thèmes on "
+           "retrouve des valeurs beaucoup plus dispersées.  "),
+    html.Hr(className="my-2"),
+
+
+
+])
+
+graphique_moyenne = dbc.Container([
+    html.P("Ce graphique nous montre le temps de réponse moyen ainsi que la marge d’erreur pour les thèmes les plus "
+           "fréquents (dont le nombre de conversations dépasse 100). Nous pouvons observer ici que les moyennes des "
+           "temps de réponses sont plus ou moins similaires, cela correspond à notre analyse d’anova. "),
+    html.Hr(className="my-2"),
+
+
+
+])
 
 
 @app.callback(Output("page-content", "children"), [dash.dependencies.Input("url", "pathname")])
@@ -89,6 +126,9 @@ def render_page_content(pathname):
     elif pathname == "/resultats":
         return dbc.Container(children=[dbc.Container(
             [
+                table_analyse_variance,
+                anova_result,
+                graphiques_associes,
                 html.Div([
                     dcc.Graph(
                         id='box-plot',
@@ -103,6 +143,7 @@ def render_page_content(pathname):
                     ),
                     html.Div(id='slider-output-container')
                 ]),
+                graphique_boxplot,
                 html.Div(
                     dcc.Graph(
                         id='bar',
@@ -112,8 +153,9 @@ def render_page_content(pathname):
             ]
 
         ),
+            graphique_moyenne,
 
-            anova_result,
+
 
         ])
         # If the user tries to reach a different page, return a 404 message

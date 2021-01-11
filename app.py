@@ -28,9 +28,8 @@ df_anova = anova.load_data(number_head=10)
 df_all_data = anova.load_data()
 df_data_sample = anova.cut_df(df_all_data, number_head=900)
 fig = anova.box_plot(df_data_sample)
-fig_barplot = anova.bar_plot(anova.cut_df(df_all_data,freq=100))
+fig_barplot = anova.bar_plot(anova.cut_df(df_all_data, freq=100))
 anova_result = anova.anova_table(df_all_data)
-
 
 table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hover=True)
 
@@ -73,7 +72,7 @@ jumbotron_presentation = dbc.Jumbotron(
             className="alert-link",
         ),
 
-        html.P(dbc.Button("Visualiser les données", color="primary", block=True), className="lead"),
+        html.P(dbc.Button("Visualiser les données", id="dataB", href="/data", color="primary", block=True), className="lead"),
     ]
 )
 table_analyse_variance = dbc.Container([
@@ -90,7 +89,6 @@ graphiques_associes = dbc.Container([
     html.H3("Graphiques associés"),
     html.Hr(className="my-2"),
 
-
 ])
 
 graphique_boxplot = dbc.Container([
@@ -100,8 +98,6 @@ graphique_boxplot = dbc.Container([
            "retrouve des valeurs beaucoup plus dispersées.  "),
     html.Hr(className="my-2"),
 
-
-
 ])
 
 graphique_moyenne = dbc.Container([
@@ -110,13 +106,8 @@ graphique_moyenne = dbc.Container([
            "temps de réponses sont plus ou moins similaires, cela correspond à notre analyse d’anova. "),
     html.Hr(className="my-2"),
 
-
-
 ])
 
-@app.callback(
-    Output("example-output", "children"), [Input("example-button", "n_clicks")]
-)
 
 
 @app.callback(Output("page-content", "children"), [dash.dependencies.Input("url", "pathname")])
@@ -158,8 +149,6 @@ def render_page_content(pathname):
 
         ),
             graphique_moyenne,
-
-
 
         ])
         # If the user tries to reach a different page, return a 404 message

@@ -37,7 +37,7 @@ table_mail = dbc.Table.from_dataframe(df_mail, striped=True, bordered=True, hove
 presentation_donnee = dbc.Jumbotron([
     html.H1("Présentation des données"),
     html.P("Ici un extrait des données de base dont nous disposions :"),
-    html.P(""),
+    html.P(" "),
     table_mail,
 
 ])
@@ -113,6 +113,10 @@ graphique_moyenne = dbc.Container([
 
 
 ])
+
+@app.callback(
+    Output("example-output", "children"), [Input("example-button", "n_clicks")]
+)
 
 
 @app.callback(Output("page-content", "children"), [dash.dependencies.Input("url", "pathname")])
